@@ -17,8 +17,8 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('address');
-            $table->unsignedBigInteger('municipalities_id');
-            $table->unsignedBigInteger('departaments_id');
+            $table->unsignedBigInteger('municipalities_id')->unsigned()->nullable();
+            $table->unsignedBigInteger('departaments_id')->unsigned()->nullable();
             
             $table->timestamps();
 

@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('quotations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('date_quotations');
-            $table->unsignedBigInteger('persons_id');
-            $table->unsignedBigInteger('offices_id');
-            $table->unsignedBigInteger('doctors_id');
+            $table->dateTime('date_init_quotations');
+            $table->dateTime('date_end_quotations');
+            $table->string('justification');
+            $table->unsignedBigInteger('persons_id')->unsigned()->nullable();
+            $table->unsignedBigInteger('offices_id')->unsigned()->nullable();
+            $table->unsignedBigInteger('doctors_id')->unsigned()->nullable();
             
             $table->timestamps();
 

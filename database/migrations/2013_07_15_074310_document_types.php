@@ -13,17 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('diagnostics_medications', function (Blueprint $table) {
+        Schema::create('document_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('quantity');
-            $table->unsignedBigInteger('medications_id')->unsigned()->nullable();
-            $table->unsignedBigInteger('diagnostics_id')->unsigned()->nullable();
+            $table->string('name');
+            $table->string('code')->unique();
             
             $table->timestamps();
-
-            $table->foreign('medications_id')->references('id')->on('medications');
-            $table->foreign('diagnostics_id')->references('id')->on('diagnostics');
-
         });
     }
 

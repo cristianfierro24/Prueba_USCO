@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('municipalities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->unsignedBigInteger('departaments_id');
+            $table->unsignedBigInteger('departaments_id')->unsigned()->nullable();
 
             $table->timestamps();
 

@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombre');
+            $table->string('name');
             $table->string('code');
 
             
             $table->timestamps();
+
+            
         });
     }
 
