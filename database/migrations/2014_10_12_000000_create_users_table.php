@@ -17,7 +17,9 @@ return new class extends Migration
 
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('document_number');
+            $table->string('gender')->nullable();
+            $table->date('birth date')->nullable();
+            $table->string('document_number')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -27,7 +29,7 @@ return new class extends Migration
             $table->decimal('salary')->nullable();
             $table->decimal('taxes')->nullable(); 
            
-            $table->unsignedBigInteger('document_types_id')->nullable()->constrained();  
+            $table->unsignedBigInteger('document_types_id')->unsigned()->nullable();  
             $table->unsignedBigInteger('profiles_id')->unsigned()->nullable();
             $table->unsignedBigInteger('municipalities_id')->unsigned()->nullable();
             $table->unsignedBigInteger('departaments_id')->unsigned()->nullable();
