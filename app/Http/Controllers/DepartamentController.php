@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Departament;
 use Illuminate\Http\Request;
-use App\Http\Resources\DepartmentCollection;
-use App\Http\Resources\DepartamentResource;
+use App\Http\Resources\departaments\DepartmentCollection;
+use App\Http\Resources\departaments\DepartamentResource;
 
 /**
  * Class DepartamentController

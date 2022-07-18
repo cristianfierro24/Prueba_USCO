@@ -17,7 +17,7 @@ class MunicipalityResource extends JsonResource
         return [
             'id'=>$this->id,
             'name'=>$this->name,
-            'departaments_id'=>$this->departaments,
+            'departaments_id'=>$this->departaments_id,
             'prueba'=>$this->prueba
         ];
     }

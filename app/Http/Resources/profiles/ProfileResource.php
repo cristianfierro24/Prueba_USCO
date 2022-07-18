@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\offices;
+namespace App\Http\Resources\profiles;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OfficeResource extends JsonResource
+class ProfileResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +17,7 @@ class OfficeResource extends JsonResource
         return [
             'id'=>$this->id,
             'name'=>$this->name,
-            'address'=>$this->address,
-            'municipalities_id'=>$this->municipalities_id,
-            'departaments_id'=>$this->departaments_id,
+            'code'=>$this->code,
             'prueba'=>$this->prueba
         ];
     }

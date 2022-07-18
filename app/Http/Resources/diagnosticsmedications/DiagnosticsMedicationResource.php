@@ -16,10 +16,9 @@ class DiagnosticsMedicationResource extends JsonResource
     {
         return [
             'id'=>$this->id,
-            'name'=>$this->name,
-            'cantidad'=>$this->cantidad,
-            'medications_id'=>$this->medications,
-            'diagnostics_id'=>$this->diagnostics,
+            'quantity'=>$this->quantity,
+            'medications_id'=>$this->medications_id,
+            'diagnostics_id'=>$this->diagnostics_id,
             'prueba'=>$this->prueba
         ];
     }

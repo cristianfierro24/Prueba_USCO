@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\DocumentType;
 use Illuminate\Http\Request;
+use App\Http\Resources\documenttypes\DocumentTypeCollection;
+use App\Http\Resources\documenttypes\DocumentTypeResource;
 
 /**
  * Class DocumentTypeController

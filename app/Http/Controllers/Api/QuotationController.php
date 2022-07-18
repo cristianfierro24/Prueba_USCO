@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Office;
 use App\Models\Quotation;
-use App\Http\Resources\offices\OfficeResource;
-use App\Http\Resources\offices\OfficeCollection;
+use App\Models\Diagnostic;
+use App\Http\Resources\quotations\QuotationResource;
+use App\Http\Resources\quotations\QuotationCollection;
 
-class OfficeController extends Controller
+class QuotationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class OfficeController extends Controller
      */
     public function index()
     {
-        return new OfficeCollection(Office::latest()->paginate());
+        return new QuotationCollection(Quotation::latest()->paginate());
     }
 
     /**
@@ -40,16 +40,19 @@ class OfficeController extends Controller
     public function store(Request $request)
     {
         try {
-            $office = new Office();
-            $office->name = $request->name;
-            $office->address = $request->address;
-            $office->municipalities_id = $request->municipalities_id;
-            $office->departaments_id = $request->departaments_id;
-            $office->save();
+            $quotation = new Quotation();
+            $quotation->date_init_quotations = $request->date_init_quotations;
+            $quotation->date_end_quotations = $request->date_end_quotations;
+            $quotation->justification = $request->justification;
+            $quotation->status = $request->status;
+            $quotation->users_id = $request->users_id;
+            $quotation->offices_id = $request->offices_id;
+            $quotation->doctors_id = $request->doctors_id;
+            $quotation->save();
 
             return response()->json([
                 'message' => 'success',
-                'data' => $office
+                'data' => $quotation
             ]);
         } catch (\Throwable $th) {
             return  response()->json([
@@ -64,9 +67,9 @@ class OfficeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Office $office)
+    public function show(Quotation $quotation)
     {
-        return new OfficeResource($office);
+        return new QuotationResource($quotation);
     }
 
     /**
@@ -90,17 +93,19 @@ class OfficeController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $office = Office::findOrFail($id);
-            $office->name = $request->name;
-            $office->address = $request->address;
-            $office->municipalities_id = $request->municipalities_id;
-            $office->departaments_id = $request->departaments_id;
-           
-            $office->save();
+            $quotation = Quotation::findOrFail($id);
+            $quotation->date_init_quotations = $request->date_init_quotations;
+            $quotation->date_end_quotations = $request->date_end_quotations;
+            $quotation->justification = $request->justification;
+            $quotation->status = $request->status;
+            $quotation->users_id = $request->users_id;
+            $quotation->offices_id = $request->offices_id;
+            $quotation->doctors_id = $request->doctors_id;
+            $quotation->save();
 
             return response()->json([
                 'message' => 'success',
-                'data' => $office
+                'data' => $quotation
             ]);
         } catch (\Throwable $th) {
             return  response()->json([
@@ -119,14 +124,14 @@ class OfficeController extends Controller
     {
         try {
             
-            if (Quotation::where('offices_id', $id )->exists()) {
+            if (Diagnostic::where('quotations_id', $id )->exists()) {
 
                 return response()->json([
                     'message' => 'warnign',
                     'info' => 'No se puede eliminar el registro por que ya está relacionado.'
                 ]);
             } else {
-                Office::destroy($id);
+                Quotation::destroy($id);
                 return response()->json([
                     'message' => 'success'
                 ]);

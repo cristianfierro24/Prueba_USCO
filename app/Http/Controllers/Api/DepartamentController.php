@@ -121,25 +121,7 @@ class DepartamentController extends Controller
      */
     public function destroy($id)
     {
-        try {
-            
-            if (Municipality::where('departaments_id', $id )->exists()) {
-
-                return response()->json([
-                    'message' => 'warnign',
-                    'info' => 'No se puede eliminar el registro por que ya está relacionado.'
-                ]);
-            } else {
-                Departament::destroy($id);
-                return response()->json([
-                    'message' => 'success'
-                ]);
-            }
-        } catch ( \Throwable $th) {
-            return  response()->json([
-                'message' => 'Error' .  $th->__toString()
-            ], 500);
-        }
+      //
     }
     
 }

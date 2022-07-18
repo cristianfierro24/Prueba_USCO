@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Municipality;
 use Illuminate\Http\Request;
+use App\Http\Resources\municipalities\MunicipalityCollection;
+use App\Http\Resources\municipalities\MunicipalityResource;
 
 /**
  * Class MunicipalityController

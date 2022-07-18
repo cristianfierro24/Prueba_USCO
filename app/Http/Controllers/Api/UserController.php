@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Office;
 use App\Models\Quotation;
-use App\Http\Resources\offices\OfficeResource;
-use App\Http\Resources\offices\OfficeCollection;
+use App\Models\User;
+use App\Http\Resources\users\UserResource;
+use App\Http\Resources\users\UserCollection;
 
-class OfficeController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class OfficeController extends Controller
      */
     public function index()
     {
-        return new OfficeCollection(Office::latest()->paginate());
+        return new UserCollection(User::latest()->paginate());
     }
 
     /**
@@ -40,16 +40,28 @@ class OfficeController extends Controller
     public function store(Request $request)
     {
         try {
-            $office = new Office();
-            $office->name = $request->name;
-            $office->address = $request->address;
-            $office->municipalities_id = $request->municipalities_id;
-            $office->departaments_id = $request->departaments_id;
-            $office->save();
+            $user = new User();
+            $user->name = $request->name;
+            $user->gender = $request->gender;
+            $user->birthdate = $request->birthdate;
+            $user->document_number = $request->document_number;
+            $user->email = $request->email;
+            $user->email_verified_at = $request->email_verified_at;
+            $user->password = $request->password;
+            $user->last_names = $request->last_names;
+            $user->address = $request->address;
+            $user->phone = $request->phone;
+            $user->salary = $request->salary;
+            $user->taxes = $request->taxes;
+            $user->document_types_id = $request->document_types_id;
+            $user->profiles_id = $request->profiles_id;
+            $user->municipalities_id = $request->municipalities_id;
+            $user->departaments_id = $request->departaments_id;
+            $user->save();
 
             return response()->json([
                 'message' => 'success',
-                'data' => $office
+                'data' => $user
             ]);
         } catch (\Throwable $th) {
             return  response()->json([
@@ -64,9 +76,9 @@ class OfficeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Office $office)
+    public function show(User $user)
     {
-        return new OfficeResource($office);
+        return new UserResource($user);
     }
 
     /**
@@ -90,17 +102,28 @@ class OfficeController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $office = Office::findOrFail($id);
-            $office->name = $request->name;
-            $office->address = $request->address;
-            $office->municipalities_id = $request->municipalities_id;
-            $office->departaments_id = $request->departaments_id;
-           
-            $office->save();
+            $user = User::findOrFail($id);
+            $user->name = $request->name;
+            $user->gender = $request->gender;
+            $user->birthdate = $request->birthdate;
+            $user->document_number = $request->document_number;
+            $user->email = $request->email;
+            $user->email_verified_at = $request->email_verified_at;
+            $user->password = $request->password;
+            $user->last_names = $request->last_names;
+            $user->address = $request->address;
+            $user->phone = $request->phone;
+            $user->salary = $request->salary;
+            $user->taxes = $request->taxes;
+            $user->document_types_id = $request->document_types_id;
+            $user->profiles_id = $request->profiles_id;
+            $user->municipalities_id = $request->municipalities_id;
+            $user->departaments_id = $request->departaments_id;
+            $user->save();
 
             return response()->json([
                 'message' => 'success',
-                'data' => $office
+                'data' => $user
             ]);
         } catch (\Throwable $th) {
             return  response()->json([
@@ -119,14 +142,14 @@ class OfficeController extends Controller
     {
         try {
             
-            if (Quotation::where('offices_id', $id )->exists()) {
+            if (Quotation::where('users_id', $id )->exists()) {
 
                 return response()->json([
                     'message' => 'warnign',
                     'info' => 'No se puede eliminar el registro por que ya está relacionado.'
                 ]);
             } else {
-                Office::destroy($id);
+                User::destroy($id);
                 return response()->json([
                     'message' => 'success'
                 ]);

@@ -90,6 +90,7 @@ class MunicipalityController extends Controller
         try {
             $municipality = Municipality::findOrFail($id);
             $municipality->name = $request->name;
+            $municipality->departaments_id = $request->departaments_id;
            
             $municipality->save();
 
@@ -112,17 +113,6 @@ class MunicipalityController extends Controller
      */
     public function destroy($id)
     {
-        try {
-                       
-                Municipality::destroy($id);
-                return response()->json([
-                    'message' => 'success'
-                ]);
-            
-        } catch ( \Throwable $th) {
-            return  response()->json([
-                'message' => 'Error' .  $th->__toString()
-            ], 500);
-        }
+        //
     }
 }

@@ -91,7 +91,8 @@ class DocumentTypeController extends Controller
         try {
             $documentType = DocumentType::findOrFail($id);
             $documentType->name = $request->name;
-           
+            $documentType->code = $request->code;
+            
             $documentType->save();
 
             return response()->json([
@@ -115,12 +116,18 @@ class DocumentTypeController extends Controller
     {
         try {
             
-            
-            DocumentType::destroy($id);
+            if (User::where('document_types_id', $id )->exists()) {
+
+                return response()->json([
+                    'message' => 'warnign',
+                    'info' => 'No se puede eliminar el registro por que ya está relacionado.'
+                ]);
+            } else {
+                Profile::destroy($id);
                 return response()->json([
                     'message' => 'success'
                 ]);
-            
+            }
         } catch ( \Throwable $th) {
             return  response()->json([
                 'message' => 'Error' .  $th->__toString()

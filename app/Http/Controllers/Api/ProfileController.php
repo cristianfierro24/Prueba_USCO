@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\DiagnosticsMedication;
+use App\Models\Profile;
+use App\Models\User;
+use App\Http\Resources\profiles\ProfileResource;
+use App\Http\Resources\profiles\ProfileCollection;
 
-use App\Http\Resources\diagnosticsmedications\DiagnosticsMedicationResource;
-use App\Http\Resources\diagnosticsmedications\DiagnosticsMedicationCollection;
-
-class DiagnosticsMedicationController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class DiagnosticsMedicationController extends Controller
      */
     public function index()
     {
-        return new DiagnosticsMedicationCollection(DiagnosticsMedication::latest()->paginate());
+        return new ProfileCollection(Profile::latest()->paginate());
     }
 
     /**
@@ -40,15 +40,15 @@ class DiagnosticsMedicationController extends Controller
     public function store(Request $request)
     {
         try {
-            $diagnosticsMedication = new DiagnosticsMedication();
-            $diagnosticsMedication->quantity = $request->quantity;
-            $diagnosticsMedication->medications_id = $request->medications_id;
-            $diagnosticsMedication->diagnostics_id = $request->diagnostics_id;
-            $diagnosticsMedication->save();
+            $profile = new Profile();
+            $profile->name = $request->name;
+            $profile->code = $request->code;
+           
+            $profile->save();
 
             return response()->json([
                 'message' => 'success',
-                'data' => $diagnosticsMedication
+                'data' => $profile
             ]);
         } catch (\Throwable $th) {
             return  response()->json([
@@ -63,9 +63,9 @@ class DiagnosticsMedicationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(DiagnosticsMedication $diagnosticsMedication)
+    public function show(Profile $profile)
     {
-        return new DiagnosticsMedicationResource($diagnosticsMedication);
+        return new ProfileResource($profile);
     }
 
     /**
@@ -89,15 +89,14 @@ class DiagnosticsMedicationController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $diagnosticsMedication = DiagnosticsMedication::findOrFail($id);
-            $diagnosticsMedication->quantity = $request->quantity;
-            $diagnosticsMedication->medications_id = $request->medications_id;
-            $diagnosticsMedication->diagnostics_id = $request->diagnostics_id;
-            $diagnosticsMedication->save();
+            $profile = Profile::findOrFail($id);
+            $profile->name = $request->name;
+            $profile->code = $request->code;
+            $profile->save();
 
             return response()->json([
                 'message' => 'success',
-                'data' => $diagnosticsMedication
+                'data' => $profile
             ]);
         } catch (\Throwable $th) {
             return  response()->json([
@@ -114,17 +113,24 @@ class DiagnosticsMedicationController extends Controller
      */
     public function destroy($id)
     {
-         try {
-                       
-            DiagnosticsMedication::destroy($id);
-            return response()->json([
-                'message' => 'success'
-            ]);
-        
-    } catch ( \Throwable $th) {
-        return  response()->json([
-            'message' => 'Error' .  $th->__toString()
-        ], 500);
-    }
+        try {
+            
+            if (User::where('profiles_id', $id )->exists()) {
+
+                return response()->json([
+                    'message' => 'warnign',
+                    'info' => 'No se puede eliminar el registro por que ya está relacionado.'
+                ]);
+            } else {
+                Profile::destroy($id);
+                return response()->json([
+                    'message' => 'success'
+                ]);
+            }
+        } catch ( \Throwable $th) {
+            return  response()->json([
+                'message' => 'Error' .  $th->__toString()
+            ], 500);
+        }
     }
 }

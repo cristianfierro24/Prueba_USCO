@@ -40,4 +40,14 @@ Route::apiResource('offices', App\Http\Controllers\Api\OfficeController::class)
 Route::apiResource('diagnostics_medications', App\Http\Controllers\Api\DiagnosticsMedicationController::class)
    ->only(['show', 'index', 'destroy', 'store', 'update'])/*->middleware('auth:sanctum')*/; 
 
-   
+Route::apiResource('diagnostics', App\Http\Controllers\Api\DiagnosticController::class)
+   ->only(['show', 'index', 'destroy', 'store', 'update'])/*->middleware('auth:sanctum')*/;   
+
+Route::apiResource('quotations', App\Http\Controllers\Api\QuotationController::class)
+   ->only(['show', 'index', 'destroy', 'store', 'update'])/*->middleware('auth:sanctum')*/;
+
+Route::apiResource('profiles', App\Http\Controllers\Api\ProfileController::class)
+   ->only(['show', 'index', 'destroy', 'store', 'update'])/*->middleware('auth:sanctum')*/;
+
+Route::apiResource('users', App\Http\Controllers\Api\UserController::class)
+   ->only(['show', 'index', 'destroy', 'store', 'update'])/*->middleware('auth:sanctum')*/;
