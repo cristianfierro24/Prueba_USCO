@@ -55,6 +55,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'gender','birthdate',
+        'document_number',
+        'last_names','address','phone','salary','taxes'
     ];
 
    
@@ -65,7 +68,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token','gender','birthdate','document_number','last_names','address','phone','salary','taxes'
+        'remember_token',
     ];
 
     /**
@@ -78,25 +81,22 @@ class User extends Authenticatable
     ];
 
     static $rules = [
+        'name'=>'required',
+        'email'=> 'required', 'unique:users',
+        'password'=> 'required',
 		'gender' => 'required',
-		'birthdate' => 'required',
+		'birthdate' => 'date',
 		'document_number' => 'required',
 		'last_names' => 'required',
         'address' => 'required',
         'phone' => 'required',
-        'salary' => 'required',
-        'taxes' => 'required',
+        'salary' => 'decimal',
+        'taxes' => 'decimal',
     ];
 
     protected $perPage = 20;
 
-     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function user()
-    {
-        return $this->hasMany('App\Models\User', 'id', 'users_id');
-    }
+    
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -128,5 +128,23 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne('App\Models\documentType', 'id', 'document_types_id');
+    }
+
+    public function user()
+    {
+        return $this->hasMany('App\Models\Quotation', 'id', 'users_id');
+    }
+
+     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function doctor()
+    {
+        return $this->hasMany('App\Models\Quotation', 'id', 'doctors_id');
+    }
+
+    public function paciente()
+    {
+        return $this->hasMany('App\Models\Quotation', 'id', 'pacients_id');
     }
 }

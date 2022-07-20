@@ -23,6 +23,7 @@ class QuotationResource extends JsonResource
             'users_id'=>$this->users_id,
             'offices_id'=>$this->offices_id,
             'doctors_id'=>$this->doctors_id,
+            'pacients_id'=>$this->pacients_id,
             'prueba'=>$this->prueba
         ];
     }

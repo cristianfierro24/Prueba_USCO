@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $users_id
  * @property $offices_id
  * @property $doctors_id
+ * @property $pacients_id
  * @property $created_at
  * @property $updated_at
  *
@@ -42,7 +43,7 @@ class Quotation extends Model
      *
      * @var array
      */
-    protected $fillable = ['date_init_quotations','date_end_quotations','justification','status','users_id','offices_id','doctors_id'];
+    protected $fillable = ['date_init_quotations','date_end_quotations','justification','status','users_id','offices_id','doctors_id','pacients_id'];
 
 
     /**
@@ -67,6 +68,22 @@ class Quotation extends Model
     public function user()
     {
         return $this->hasOne('App\Models\User', 'id', 'users_id');
+    }
+
+     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function pacient()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'pacients_id');
+    }
+
+     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function doctor()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'doctors_id');
     }
     
    

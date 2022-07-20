@@ -48,6 +48,7 @@ class QuotationController extends Controller
             $quotation->users_id = $request->users_id;
             $quotation->offices_id = $request->offices_id;
             $quotation->doctors_id = $request->doctors_id;
+            $quotation->pacients_id = $request->pacients_id;
             $quotation->save();
 
             return response()->json([
@@ -101,6 +102,7 @@ class QuotationController extends Controller
             $quotation->users_id = $request->users_id;
             $quotation->offices_id = $request->offices_id;
             $quotation->doctors_id = $request->doctors_id;
+            $quotation->pacients_id = $request->pacients_id;
             $quotation->save();
 
             return response()->json([

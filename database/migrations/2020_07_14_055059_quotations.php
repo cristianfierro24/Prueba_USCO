@@ -22,12 +22,14 @@ return new class extends Migration
             $table->unsignedBigInteger('users_id')->unsigned()->nullable();
             $table->unsignedBigInteger('offices_id')->unsigned()->nullable();
             $table->unsignedBigInteger('doctors_id')->unsigned()->nullable();
+            $table->unsignedBigInteger('pacients_id')->unsigned()->nullable();
             
             $table->timestamps();
 
             $table->foreign('users_id')->references('id')->on('users');
             $table->foreign('offices_id')->references('id')->on('offices');
             $table->foreign('doctors_id')->references('id')->on('users');
+            $table->foreign('pacients_id')->references('id')->on('users');
 
         });
     }

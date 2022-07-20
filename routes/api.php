@@ -51,3 +51,6 @@ Route::apiResource('profiles', App\Http\Controllers\Api\ProfileController::class
 
 Route::apiResource('users', App\Http\Controllers\Api\UserController::class)
    ->only(['show', 'index', 'destroy', 'store', 'update'])/*->middleware('auth:sanctum')*/;
+
+Route::post('login',[Login::class, 'login']);
+Route::post('logout',[Login::class, 'logout'])->middleware('auth:sanctum');
